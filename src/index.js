@@ -1,5 +1,7 @@
 "use strict";
 
+import Person from "./person.js";
+
 /**
  * Creates a DOM element and adds class name and text
  * @param {string} tag
@@ -75,9 +77,9 @@ header.append(headerTitle, headerText);
 const form = document.createElement("form");
 const inputData = createElement("div", "input-data");
 const inputOptions = [
-  ["text", "first-name", "First name"],
-  ["text", "last-name", "Last name"],
-  ["text", "display-name", "Display Name"],
+  ["text", "firstName", "First name"],
+  ["text", "lastName", "Last name"],
+  ["text", "nickName", "Nick Name"],
   ["email", "email", "Email Address"],
   ["password", "pass", "Password"],
   ["password", "pass-confirm", "Password Confirmation"],
@@ -204,3 +206,46 @@ function validateEmail(event) {
 }
 
 emailInput.addEventListener("input", validateEmail);
+
+// collect props
+form.addEventListener("submit", createAccount);
+
+/**
+ * Collects the values of all form inputs except passwords
+ * @returns {Object} collected input data
+ */
+function collectFormData() {
+  const formData = {};
+
+  form.querySelectorAll("input").forEach((input) => {
+    if (input.type === "password") return;
+
+    if (input.type === "radio") {
+      if (input.checked) formData[input.name] = input.value;
+
+      return;
+    }
+
+    if (input.type === "checkbox") {
+      formData[input.id] = input.checked;
+
+      return;
+    }
+
+    formData[input.id] = input.value;
+  });
+
+  return formData;
+}
+
+/**
+ * Creates a person from the form data and saves it to localStorage
+ * @param {Event} event
+ */
+function createAccount(event) {
+  event.preventDefault();
+
+  const person = new Person(collectFormData());
+
+  localStorage.setItem(person.lastName, JSON.stringify(person));
+}
