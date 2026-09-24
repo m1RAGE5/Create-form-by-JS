@@ -128,3 +128,49 @@ submitBtn.setAttribute("type", "submit");
 form.append(inputData, roleSelect, marketingCheck, submitBtn);
 container.append(header, form);
 document.body.append(container);
+
+// password validation
+const passwordInput = document.querySelector("#pass");
+const passwordConfirmInput = document.querySelector("#pass-confirm");
+
+/**
+ * Shows an error message with red border under the input
+ * @param {HTMLInputElement} input
+ * @param {string} message
+ */
+function showInputError(input, message) {
+  hideInputError(input);
+
+  const error = createElement("div", "input-error", message);
+
+  input.classList.add("input-invalid");
+  input.after(error);
+}
+
+/**
+ * Hides the error message under the input
+ * @param {HTMLInputElement} input
+ */
+function hideInputError(input) {
+  const error = input.nextElementSibling;
+
+  input.classList.remove("input-invalid");
+
+  if (error && error.classList.contains("input-error")) error.remove();
+}
+
+/**
+ * Validates that the password confirmation matches the password
+ * @param {Event} event
+ */
+function validatePassword(event) {
+  const confirmPassword = event.target.value;
+
+  if (confirmPassword === passwordInput.value) {
+    hideInputError(event.target);
+  } else {
+    showInputError(event.target, "Passwords do not match");
+  }
+}
+
+passwordConfirmInput.addEventListener("input", validatePassword);

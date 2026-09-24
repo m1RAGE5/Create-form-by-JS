@@ -1,0 +1,31 @@
+# JavaScript
+# JS-specific ignores here
+
+# Node
+node_modules/
+.cache/
+coverage/
+
+# Build outputs
+dist/
+build/
+*.zip
+
+# Common
+.DS_Store
+Thumbs.db
+*.log
+*.bak
+*.tmp
+*.swp
+*~
+
+# IDE and editor generated files
+.vscode/
+.idea/
+*.sublime-*
+
+# Local environment files
+.env
+.env.local
+.env.*.local

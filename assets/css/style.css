@@ -104,3 +104,17 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+
+.input-invalid {
+  border: 1px solid red;
+}
+
+.input-error {
+  flex: 1 1 100%;
+  color: red;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 600;
+}
