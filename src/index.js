@@ -174,3 +174,33 @@ function validatePassword(event) {
 }
 
 passwordConfirmInput.addEventListener("input", validatePassword);
+
+// email validation
+const emailInput = document.querySelector("#email");
+
+/**
+ * Checks that the email matches the pattern
+ * @param {string} email
+ * @returns {boolean} is email valid
+ */
+function isValidEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
+  return emailPattern.test(email);
+}
+
+/**
+ * Validates the email field value
+ * @param {Event} event
+ */
+function validateEmail(event) {
+  const email = event.target.value;
+
+  if (isValidEmail(email)) {
+    hideInputError(event.target);
+  } else {
+    showInputError(event.target, "Email is not valid");
+  }
+}
+
+emailInput.addEventListener("input", validateEmail);
